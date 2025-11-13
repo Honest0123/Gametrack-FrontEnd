@@ -13,8 +13,11 @@ export default function TarjetaDeJuego({ data }) {
   const titulo = data.titulo || "Título del Juego";
   const descripcion = data.descripcion || "Descripción del juego que da una idea general sobre su contenido y características.";
   const imagenPortada = data.imagenPortada || "/vite.svg";
-  const imagen2 = data.imagen || "/vite.svg";
-  const imagen3 = data.imagen || "/vite.svg";
+  const imagen2 = data.imagen2 || "/vite.svg";
+  const imagen3 = data.imagen3 || "/vite.svg";
+  const fechaLanzamiento = data.fechaLanzamiento || "2023-01-01";
+  const genero = data.genero || "Acción";
+  const plataformas = data.plataformas || ["PC", "PS5", "Xbox"];
 
   return (
     <div
@@ -38,8 +41,8 @@ export default function TarjetaDeJuego({ data }) {
             <div className="calificacion">{estrellas}</div>
           </div>
           <div className="info-segunda">
-            <p className="fecha-lanzamiento">Lanzamiento: 2023</p>
-            <p className="genero-juego">Género: Acción</p>
+            <p className="fecha-lanzamiento">Lanzamiento: {fechaLanzamiento}</p>
+            <p className="genero-juego">Género: {genero}</p>
           </div>
           <div className="info-imagenes">
             <img src={imagenPortada} alt={"imagen de " + titulo} className="imagen-1"/>
@@ -47,7 +50,7 @@ export default function TarjetaDeJuego({ data }) {
             <img src={imagen3} alt={"imagen de " + titulo} className="imagen-3"/>
           </div>
           <p className="descripcion-juego-preview">{descripcion}</p> <br/>
-          <p className="plataformas-juego">Plataformas: PC, PS5, Xbox</p>
+          <p className="plataformas-juego">Plataformas: {plataformas.join(", ")}</p>
         </>
       )} 
 
