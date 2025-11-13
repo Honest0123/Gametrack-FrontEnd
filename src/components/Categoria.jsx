@@ -1,13 +1,50 @@
-import TarjetaDeJuego from "./TarjetaDeJuego"
+import TarjetaDeJuego from "./TarjetaDeJuego.jsx";
+import { useEffect, useState } from "react";
 
 export default function Categoria({ nombre }) {
+  const [juegos, setJuegos] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchJuegos = async () => {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/Games/Juegos`)
+
+        if (!res.ok) {
+          throw new Error(`Error Http ${res.status}`);
+        }
+
+        const data = await res.json();
+        setJuegos(data);
+      } catch (error) {
+        console.error('Error al obtener los juegos:', error);
+        setError(error.message);
+      } finally {
+        setCargando(false);
+      }
+
+    }
+
+    fetchJuegos();
+  })
+
+  if (cargando) {
+    return <div>Cargando juegos...</div>;
+  }
+
+  if (error) {
+    return <div>Error al cargar los juegos: {error}</div>;
+  }
+    
+
   return (
     <div className="categoria">
       <h2>{nombre}</h2>
       <div className="lista-juegos">
-        <TarjetaDeJuego titulo="Juego 1" descripcion="Descripción del juego 1" calificacion={4} imagen="public/vite.svg" />
-        <TarjetaDeJuego titulo="Juego 2" descripcion="Descripción del juego 2" calificacion={5} imagen="public/vite.svg" />
-        <TarjetaDeJuego titulo="Juego 3" descripcion="Descripción del juego 3" calificacion={3} imagen="public/vite.svg" />
+        {juegos.map((juego) => (
+          <TarjetaDeJuego key={juego._id} data={juego} />
+        ))}
       </div>
     </div>
   )
