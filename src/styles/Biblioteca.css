@@ -77,6 +77,7 @@ main {
 
 .tarjeta-juego:hover {
   display: grid;
+  grid-template-rows: auto auto;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
   width: 500px;
   height: 400px;
@@ -113,13 +114,17 @@ main {
   justify-content: space-between;
   gap: 0.5rem;
   row-gap: 0;
+  max-height: 55%;
+  max-height: 200px;
 }
 
 .info-imagenes .imagen-1{
+  display: block;
   grid-column: 1 /span 2;
   grid-row: 1 / span 2;
   height: 85%;
-  max-width: fit-content;
+  max-height: 85%;
+  max-width: 100%;
   object-fit: cover;
   align-self: center;
 }
@@ -127,6 +132,7 @@ main {
 .info-imagenes .imagen-2{
   grid-column: 3;
   grid-row: 1;
+  display: block;
   max-height: 100%;
   max-width: 100%;
   object-fit: cover;
@@ -136,6 +142,7 @@ main {
 .info-imagenes .imagen-3{
   grid-column: 3;
   grid-row: 2;
+  display: block;
   max-height: 100%;
   max-width: 100%;
   object-fit: cover;
@@ -143,13 +150,14 @@ main {
 }
 
 .descripcion-juego-preview {
-  grid-template-rows: auto 1fr auto;
   margin: 0;
   font-size: 1.2rem;
-  max-height: none;
-  overflow: none;
+  overflow: hidden;
   text-overflow: ellipsis;
   place-self: start stretch;
+  grid-row: auto;
+  grid-column: auto / span 2;
+  max-height: 90%;
 }
 
 .plataformas-juego {
@@ -157,4 +165,5 @@ main {
   font-size: 1rem;
   color: #aaaaaa;
   place-self: end stretch;
+  grid-column: 1;
 }
