@@ -4,15 +4,34 @@ import gamepadLogo from '../assets/gamepad.png'
 
 export default function TarjetaDeJuego({ data }) {
   const [preview, setPreview] = useState(false);
+  const [calificacion, setCalificacion] = useState(0);
 
-  /* useEffect(() => {
-    // calcular calificacion en base a las reviews del juego si es que existen
-    try {
-      const res = fetch(`${import.meta.env.VITE_API_URL}/api/Games/reviews?juegoId=${data._id}`);
-    }
-  }); */
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try { // calcular calificacion en base a las reviews del juego si es que existen
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/Games/reviews?juegoId=${data._id}`);
 
-  const calificacion = data.calificacion || 0;
+        if (!res.ok) {
+          throw new Error(`Error Http ${res.status}`);
+        }
+        
+        const reviews = await res.json();
+        if (reviews.length > 0) {
+          const sumaCalificaciones = reviews.reduce((suma, review) => suma + review.puntuacion, 0);
+          const calificacionPromedio = sumaCalificaciones / reviews.length;
+          setCalificacion(Math.round(calificacionPromedio));
+        } else {
+          setCalificacion(0);
+        }
+
+      } catch (error) {
+        console.error('Error al obtener las reviews del juego:', error);
+      }
+    };
+
+    fetchReviews();
+  }, [data._id]);
+
   const estrellas = Array.from({ length: 5 }, (_, i) => (
     <Icon key={i} icon={i < calificacion ? "icon-park-solid:star" : "icon-park-outline:star"} />
   ));

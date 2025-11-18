@@ -23,11 +23,10 @@ export default function Categoria({ nombre }) {
       } finally {
         setCargando(false);
       }
-
     }
 
     fetchJuegos();
-  })
+  }, [nombre]);
 
   if (cargando) {
     return <div>Cargando juegos...</div>;

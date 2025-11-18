@@ -30,8 +30,9 @@ main {
 .lista-juegos {
   display: flex;
   flex-direction: row;
+  flex-wrap: nowrap;
   gap: 1rem;
-  overflow-x: auto;
+  overflow-x: scroll;
   padding-bottom: 1rem;
 }
 
@@ -45,7 +46,8 @@ main {
   border-radius: 8px;
   padding: 1rem;
   margin: 0.5rem 0;
-  width: 220px;
+  min-width: 15%;
+  max-width: 30%;
   height: 300px;
   transition: all 0.3s ease;
   transform-origin: center;
@@ -58,10 +60,18 @@ main {
 }
 
 .titulo-juego {
-  flex-shrink: 0;
+  flex-grow: 3;
   font-size: 2rem;
   margin: 0rem;
   color: #ffffff;
+}
+
+.calificacion {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  gap: 0.2rem;
+  margin: 0.3rem 0;
 }
 
 .descripcion-juego {
@@ -79,7 +89,8 @@ main {
   display: grid;
   grid-template-rows: auto auto;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  width: 500px;
+  min-width: 25%;
+  max-width: 30%;
   height: 400px;
   z-index: 10;
 }
