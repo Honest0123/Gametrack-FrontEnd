@@ -1,0 +1,103 @@
+/* 🔥 INPUT PRINCIPAL */
+.neon-input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  background: #0a0f1f;
+  color: #00ff37;
+  border: 2px solid #00ff37;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #00ff37;
+  text-shadow: 0 0 5px #00ff37;
+}
+
+.neon-input::placeholder {
+  color: #0088aa;
+}
+
+/* Cuando haces focus */
+.neon-input:focus {
+  outline: none;
+  box-shadow: 0 0 15px #00ff37, 0 0 25px #0088ff;
+  border-color: #66ffff;
+}
+
+/* 🔥 ICONO DEL CALENDARIO */
+.neon-input::-webkit-calendar-picker-indicator {
+  filter: drop-shadow(0 0 5px #00ff37) invert(80%);
+  cursor: pointer;
+}
+
+/* 🔥 POPUP CALENDAR */
+.neon-calendar {
+  background: #0a0f1f !important;
+  border: 2px solid #00ff37 !important;
+  box-shadow: 0 0 25px #00ff37 !important;
+  border-radius: 10px !important;
+  padding: 10px;
+}
+
+/* Días */
+.react-datepicker__day {
+  color: #00ff37 !important;
+}
+
+.react-datepicker__day:hover {
+  background: #001f33 !important;
+  border-radius: 4px;
+  box-shadow: 0 0 10px #00ff37;
+}
+
+.react-datepicker__day--selected {
+  background: #00ff37 !important;
+  color: #000 !important;
+  text-shadow: none;
+}
+
+/* Encabezado del calendario */
+.react-datepicker__current-month,
+.react-datepicker__day-name {
+  color: #37af12 !important;
+  text-shadow: 0 0 5px #00ff372c;
+}
+
+/* Flechas */
+.react-datepicker__navigation {
+  filter: drop-shadow(0 0 5px #00ff37);
+}
+
+.react-datepicker__navigation-icon::before {
+  border-color: #00ff37 !important;
+}
+
+/* Popper (posición del popup) */
+.neon-popper {
+  z-index: 9999;
+}
+
+.react-datepicker__header {
+  background: #0a0f1f !important;
+  border-bottom: 2px solid #00ff37 !important;
+}
+
+/* Dropdowns de mes y año */
+.react-datepicker__month-dropdown-container,
+.react-datepicker__year-dropdown-container {
+  color: #00ff37 !important;
+}
+
+.react-datepicker__month-select,
+.react-datepicker__year-select {
+  background: #0a0f1f;
+  color: #00ff37;
+  border: 1px solid #00ff37;
+  border-radius: 6px;
+  padding: 5px;
+  box-shadow: 0 0 10px #00ff37;
+}
+
+.react-datepicker__month-select option,
+.react-datepicker__year-select option {
+  background: #0a0f1f;
+  color: #00ff37;
+}

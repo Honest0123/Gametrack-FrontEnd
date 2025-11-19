@@ -1,5 +1,5 @@
 import '../styles/Biblioteca.css'
-import TarjetaDeJuego from './TarjetaDeJuego.jsx'
+import CrearJuego from './CrearJuego.jsx'
 import Categoria from './Categoria.jsx'
 
 export default function Biblioteca() {
@@ -12,6 +12,8 @@ export default function Biblioteca() {
         <Categoria nombre="Estrategia" />
         <Categoria nombre="RPG" />
       </section>
+
+      <CrearJuego />
     </main>
   )
 }
