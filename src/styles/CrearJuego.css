@@ -63,7 +63,7 @@
 .modal {
     background: linear-gradient(180deg, var(--panel), var(--panel-2));
     max-width: 720px;
-    width: 100%;
+    min-width: 65%;
     border-radius: 12px;
     padding: 1.25rem 1.5rem;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 255, 55, 0.03);
