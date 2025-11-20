@@ -13,7 +13,6 @@ export default function Biblioteca() {
         <Categoria nombre="RPG" />
       </section>
 
-      <CrearJuego />
     </main>
   )
 }

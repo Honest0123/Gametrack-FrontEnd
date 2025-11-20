@@ -36,6 +36,11 @@ export default function TarjetaDeJuego({ data }) {
     <Icon key={i} icon={i < calificacion ? "icon-park-solid:star" : "icon-park-outline:star"} />
   ));
 
+  const HandleGameClicked = () => {
+    // Abrir modal de JuegoCompleto
+    window.dispatchEvent(new CustomEvent('abrir-juego-completo', { detail: { data, calificacion } }));
+  }
+
   /* Inicializacion de datos. Reemplazados por los que vengan de data, sino dummy*/
   const titulo = data.titulo || "Título del Juego";
   const descripcion = data.descripcion || "Descripción del juego que da una idea general sobre su contenido y características.";
@@ -47,7 +52,7 @@ export default function TarjetaDeJuego({ data }) {
   const plataformas = data.plataforma || ["PC", "PS5", "Xbox"];
 
   return (
-    <div
+    <div onClick={HandleGameClicked}
       className={`tarjeta-juego ${preview ? "preview" : ""}`}
       onMouseEnter={() => setPreview(true)}
       onMouseLeave={() => setPreview(false)}
@@ -66,9 +71,10 @@ export default function TarjetaDeJuego({ data }) {
           <div className="info-primera">
             <h3 className="titulo-juego">{titulo}</h3>
             <div className="calificacion">{estrellas}</div>
+            
           </div>
           <div className="info-segunda">
-            <p className="fecha-lanzamiento">Lanzamiento: {fechaLanzamiento.split("T")[0]}</p>
+            {/* <p className="fecha-lanzamiento">Lanzamiento: {fechaLanzamiento.split("T")[0]}</p> */}
             <p className="genero-juego">{genero}</p>
           </div>
           <div className="info-imagenes">
