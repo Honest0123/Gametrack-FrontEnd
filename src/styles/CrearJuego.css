@@ -15,8 +15,43 @@
 .game-form {
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
     gap: 1rem;
+    max-height: 90vh;
 }
+
+/* Scrollbar verde */
+.game-form {
+  scrollbar-width: thin;
+  /* Firefox */
+  scrollbar-color: rgba(0, 255, 55, 0.6) transparent;
+}
+
+.game-form::-webkit-scrollbar {
+  height: 12px;
+}
+
+.game-form::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.game-form::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, rgba(0, 255, 55, 0.24), rgba(0, 255, 55, 0.48));
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  box-shadow: 0 4px 18px rgba(0, 255, 55, 0.12), inset 0 0 8px rgba(0, 0, 0, 0.35);
+}
+
+.game-form::-webkit-scrollbar-thumb:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 34px rgba(0, 255, 55, 0.16), inset 0 0 10px rgba(0, 0, 0, 0.45);
+}
+
+.game-form::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
 
 /* Overlay + modal */
 .modal-overlay {
@@ -42,12 +77,13 @@
     color: var(--muted);
     transform-origin: center;
     animation: popIn .22s cubic-bezier(.2, .9, .2, 1);
+    gap: 5px;
 }
 
 .modal-close {
     position: absolute;
-    right: 12px;
-    top: 10px;
+    right: 30px;
+    top: 30px;
     background: transparent;
     border: none;
     font-size: 1.6rem;
@@ -61,7 +97,7 @@
     margin-top: 0.5rem;
 }
 
-.form-actions .primary {
+.form-actions .boton-crear {
     background: linear-gradient(90deg, rgba(0, 255, 55, 0.14), rgba(102, 255, 255, 0.06));
     color: var(--neon);
     border: 1px solid rgba(0, 255, 55, 0.18);
@@ -72,9 +108,24 @@
     transition: all 160ms ease;
 }
 
-.form-actions .primary:hover {
+.form-actions .boton-crear:hover {
     transform: translateY(-3px);
     box-shadow: 0 18px 60px rgba(0, 255, 55, 0.12);
+}
+
+.form-actions .boton-cancelar {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 0.5rem 0.9rem;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+    transition: all 160ms ease;
+}
+.form-actions .boton-cancelar:hover {
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow: 0 8px 34px rgba(0, 0, 0, 0.35);
 }
 
 .mensaje {
@@ -106,7 +157,115 @@ textarea:focus {
     display: flex;
     flex-direction: row;
     gap: 1rem;
+    width: 100%;
 }
+
+.fecha-lanzamiento {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+.imagenes {
+    display: grid;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.imagenes .label {
+    grid-row: 1;
+    grid-column: 1 / span 2;
+}
+
+.url-portada {
+    grid-row: 2;
+    grid-column: 1;
+    align-self: center;
+}
+.url-2 {
+    grid-row: 3;
+    grid-column: 1;
+    align-self: center;
+}
+
+.url-3 {
+    grid-row: 4;
+    grid-column: 1;
+    align-self: center;
+}
+
+.img-preview {
+    box-shadow: 0 4px 18px rgba(0, 255, 55, 0.12);
+    border-radius: 8px;
+}
+.preview-portada {
+    align-self: center;
+    justify-self: center;
+    grid-row: 2;
+    grid-column: 2;
+    max-width: 50%;
+}
+.preview-imagen2 {
+    align-self: center;
+    justify-self: center;
+    grid-row: 3;
+    grid-column: 2;
+    max-width: 150px;
+}
+.preview-imagen3 {
+    align-self: center;
+    justify-self: center;
+    grid-row: 4;
+    grid-column: 2;
+    max-width: 150px;
+}
+
+.descripcion {
+    min-height: 4rem;
+    min-width: 50%;
+    resize: vertical;
+    field-sizing: content;
+}
+
+.check-completado {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--neon);
+    cursor: pointer;
+}
+
+/* error outline for dropdown containers */
+.multi-select-dropdown.error{
+    box-shadow: 0 6px 28px rgba(0,0,0,0.5), 0 0 18px rgba(255,0,0,0.06) inset;
+    border-radius:8px;
+    padding:6px;
+    border:1px solid rgba(255,0,0,0.18);
+}
+.multi-select-dropdown.error label{ color: #ff8b8b; }
+.error-text{ color: #ff8b8b; font-size:0.85rem; margin-left:8px; align-self:center; }
+
+/* notificacion flotante */
+.notificacion-flotante{
+    min-width: 25%;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    right: auto;
+    bottom: auto;
+    background: linear-gradient(90deg, rgba(0,255,55,0.08), rgba(0,255,55,0.02));
+    color: var(--neon);
+    padding: 10px 14px;
+    border-radius: 10px;
+    border:1px solid rgba(0,255,55,0.12);
+    box-shadow: 0 12px 40px rgba(0,255,55,0.06);
+    opacity: 0;
+    transform: translate(-50%, -60%) scale(.98);
+    transition: all 260ms cubic-bezier(.2,.9,.2,1);
+    z-index: 99999;
+    pointer-events:none;
+}
+.notificacion-flotante.visible{ opacity: 1; transform: translate(-50%, -50%) scale(1); pointer-events: auto; }
+
 
 @keyframes popIn {
     from {

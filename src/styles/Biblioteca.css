@@ -45,6 +45,39 @@ main {
   padding-bottom: 1rem;
 }
 
+/* Scrollbar verde */
+.lista-juegos {
+  scrollbar-width: thin;
+  /* Firefox */
+  scrollbar-color: rgba(0, 255, 55, 0.6) transparent;
+}
+
+.lista-juegos::-webkit-scrollbar {
+  height: 12px;
+}
+
+.lista-juegos::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.lista-juegos::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, rgba(0, 255, 55, 0.24), rgba(0, 255, 55, 0.48));
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  box-shadow: 0 4px 18px rgba(0, 255, 55, 0.12), inset 0 0 8px rgba(0, 0, 0, 0.35);
+}
+
+.lista-juegos::-webkit-scrollbar-thumb:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 34px rgba(0, 255, 55, 0.16), inset 0 0 10px rgba(0, 0, 0, 0.45);
+}
+
+.lista-juegos::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+
 .tarjeta-juego {
   display: flex;
   flex-direction: column;

@@ -8,15 +8,33 @@ export default function CrearJuego({ isOpen = false, onClose = () => {} }) {
   const [descripcion, setDescripcion] = useState("");
   const [genero, setGenero] = useState([]);
   const [plataforma, setPlataforma] = useState([]);
-  const [añoLanzamiento, setAñoLanzamiento] = useState(null);
-  const [Desarrollador, setDesarrollador] = useState("");
+  const [añoLanzamiento, setAñoLanzamiento] = useState(Date);
+  const [desarrollador, setDesarrollador] = useState("");
   const [imagenPortada, setImagenPortada] = useState("");
   const [imagen2, setImagen2] = useState("");
   const [imagen3, setImagen3] = useState("");
-  const [Completado, setCompletado] = useState(false);
+  const [completado, setCompletado] = useState(false);
 
   const [mensaje, setMensaje] = useState("");
   const [Errors, setErrors] = useState({});
+
+    // helper: notificación flotante al crear juego
+    const MostrarNotificacion = (msg, duration = 3000) => {
+        try {
+            const notificacion = document.createElement('div');
+            notificacion.className = 'notificacion-flotante';
+            notificacion.textContent = msg;
+            document.body.appendChild(notificacion);
+            // force reflow for animation
+            // eslint-disable-next-line no-unused-expressions
+            notificacion.offsetHeight;
+            notificacion.classList.add('visible');
+            setTimeout(() => {
+                notificacion.classList.remove('visible');
+                setTimeout(() => notificacion.remove(), 400);
+            }, duration);
+        } catch (e) { console.warn('Notificación error', e); }
+    }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,39 +52,62 @@ export default function CrearJuego({ isOpen = false, onClose = () => {} }) {
     }
 
     try {
+        // Preparar payload: backend espera strings para la mayoría de campos
+        const payload = {
+            titulo: titulo || "",
+            descripcion: descripcion || "",
+            // enviar arrays como CSV string (backend espera string)
+            genero: Array.isArray(genero) ? genero.join(',') : (genero || ""),
+            plataforma: Array.isArray(plataforma) ? plataforma.join(',') : (plataforma || ""),
+            // enviar fecha ISO (backend espera Date-ish value)
+            añoLanzamiento: añoLanzamiento ? (añoLanzamiento.toISOString ? añoLanzamiento.toISOString() : new Date(añoLanzamiento).toISOString()) : null,
+            desarrollador: desarrollador || "",
+            imagenPortada: imagenPortada || "",
+            imagen2: imagen2 || "",
+            imagen3: imagen3 || "",
+            completado: !!completado,
+        };
+
+        console.log('Enviando POST a', `${import.meta.env.VITE_API_URL}/api/Games/juegos`, 'payload:', payload);
+
         const res = await fetch(`${import.meta.env.VITE_API_URL}/api/Games/juegos`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "Accept": "application/json",
             },
-            body: JSON.stringify({
-                titulo,
-                descripcion,
-                genero,
-                plataforma,
-                añoLanzamiento,
-                Desarrollador,
-                imagenPortada,
-                imagen2,
-                imagen3,
-                Completado,
-            }),
-        })
+            body: JSON.stringify(payload),
+        });
 
-        if (!res.ok) throw new Error(`Error Http ${res.status}`);
+        const text = await res.text();
+        let data;
+        try { data = text ? JSON.parse(text) : null; } catch (e) { data = text }
+
+        console.log('Respuesta POST', res.status, data);
+
+        if (!res.ok) {
+            throw new Error(`Error Http ${res.status}: ${JSON.stringify(data)}`);
+        }
 
         setMensaje("Juego creado exitosamente!");
 
+        // Resetear estados a sus tipos originales
         setTitulo("");
         setDescripcion("");
-        setGenero("");
-        setPlataforma("");
-        setAñoLanzamiento("");
+        setGenero([]);
+        setPlataforma([]);
+        setAñoLanzamiento(null);
         setDesarrollador("");
         setImagenPortada("");
         setImagen2("");
         setImagen3("");
         setCompletado(false);
+
+        // Mostrar Notificacion flotante
+        MostrarNotificacion('Juego creado exitosamente!');
+
+        // Dispatch evento global para que listas se actualicen
+        try { window.dispatchEvent(new CustomEvent('juego-creado', { detail: data })); } catch(e) { console.warn(e) }
 
         // Cerrar modal después de crear exitosamente
         if (onClose) onClose();
@@ -97,47 +138,54 @@ export default function CrearJuego({ isOpen = false, onClose = () => {} }) {
                     <input type="text" placeholder="Título" value={titulo} onChange={(e) => setTitulo(e.target.value)} required />
 
                     <label>Descripción:</label>
-                    <textarea placeholder="Descripción" value={descripcion} onChange={(e) => setDescripcion(e.target.value)} required></textarea>
+                    <textarea className="descripcion" placeholder="Descripción" value={descripcion} onChange={(e) => setDescripcion(e.target.value)} required></textarea>
                     
-                    <div className="multi-select-dropdown"> 
+                    <div className={`multi-select-dropdown ${Errors.genero ? 'error' : ''}`}> 
                         <label>Género:</label>
                         <Dropdown
                             options={['Acción', 'Aventura', 'Estrategia', 'RPG', 'Deportes', 'Simulación']}
                             selected={genero}
                             onChange={setGenero}
                         />
+                        {Errors.genero && <span className="error-text">{Errors.genero}</span>}
                     </div>
 
-                    <div className="multi-select-dropdown">
-                    <label>Plataforma:</label>
-                        <Dropdown
-                            options={['PC', 'PlayStation', 'Xbox', 'Nintendo Switch']}
-                            selected={plataforma}
-                            onChange={setPlataforma}
-                        />
+                    <div className={`multi-select-dropdown ${Errors.plataforma ? 'error' : ''}`}>
+                        <label>Plataforma:</label>
+                            <Dropdown
+                                options={['PC', 'PlayStation', 'Xbox', 'Nintendo Switch']}
+                                selected={plataforma}
+                                onChange={setPlataforma}
+                            />
+                            {Errors.plataforma && <span className="error-text">{Errors.plataforma}</span>}
                     </div>
 
-                    <div>
-                    <label>Año de Lanzamiento:</label>
+                    <div className="fecha-lanzamiento">
+                    <label>Fecha de Lanzamiento:</label>
                     <CustomCalendario value={añoLanzamiento} onChange={setAñoLanzamiento} />
                     </div>
 
                     <label>Desarrollador:</label>
-                    <input type="text" placeholder="Desarrollador" value={Desarrollador} onChange={(e) => setDesarrollador(e.target.value)} required />
+                    <input type="text" placeholder="Desarrollador" value={desarrollador} onChange={(e) => setDesarrollador(e.target.value)} required />
 
                     <label>URL de imagenes:</label>
-                    <input type="text" placeholder="URL Imagen de Portada" value={imagenPortada} onChange={(e) => setImagenPortada(e.target.value)} required />
-                    <input type="text" placeholder="URL Imagen 2" value={imagen2} onChange={(e) => setImagen2(e.target.value)} />
-                    <input type="text" placeholder="URL Imagen 3" value={imagen3} onChange={(e) => setImagen3(e.target.value)} />
+                    <div className="imagenes">
+                        <input className="url-portada" type="text" placeholder="URL Imagen de Portada" value={imagenPortada} onChange={(e) => setImagenPortada(e.target.value)} required />
+                        <input className="url-2" type="text" placeholder="URL Imagen 2" value={imagen2} onChange={(e) => setImagen2(e.target.value)} />
+                        <input className="url-3" type="text" placeholder="URL Imagen 3" value={imagen3} onChange={(e) => setImagen3(e.target.value)} />
+                        {imagenPortada ? (<img src={imagenPortada} className="preview-portada img-preview" onError={(e) => e.target.style.display = 'none'} />) : null}
+                        {imagen2 ? (<img src={imagen2} className="preview-imagen2 img-preview" onError={(e) => e.target.style.display = 'none'} />) : null}
+                        {imagen3 ? (<img src={imagen3} className="preview-imagen3 img-preview" onError={(e) => e.target.style.display = 'none'} />) : null}
+                    </div>
 
                     <div>
                         <label>Completado:</label>
-                        <input type="checkbox" checked={Completado} onChange={(e) => setCompletado(e.target.checked)} />
+                        <input className="check-completado" type="checkbox" checked={completado} onChange={(e) => setCompletado(e.target.checked)} />
                     </div>
 
                     <div className="form-actions">
-                        <button type="submit" className="primary">Crear Juego</button>
-                        <button type="button" onClick={onClose}>Cancelar</button>
+                        <button type="submit" className="boton-crear">Crear Juego</button>
+                        <button type="button" className="boton-cancelar" onClick={onClose}>Cancelar</button>
                     </div>
                     {mensaje && <p className="mensaje">{mensaje}</p>}
                 </form>

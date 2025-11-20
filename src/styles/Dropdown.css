@@ -1,6 +1,6 @@
 .dropdown-container {
     position: relative;
-    width: 220px;
+    width: fit-content;
     display: inline-block;
 }
 
@@ -11,6 +11,7 @@
 }
 
 .dropdown-select {
+    min-width: 10rem;
     padding: 10px 12px;
     border-radius: 8px;
     background: var(--panel);
@@ -36,7 +37,7 @@
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
     z-index: 2000;
     padding: 6px;
-    margin-top: 8px;
+    margin-top: 0px;
 }
 
 .dropdown-option {

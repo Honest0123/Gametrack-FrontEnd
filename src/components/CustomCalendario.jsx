@@ -9,12 +9,12 @@ export default function FuturisticDatePicker({ value, onChange }) {
       <DatePicker
         selected={value}
         onChange={onChange}
-        placeholderText="Select date"
+        placeholderText="Selecciona una fecha"
         dateFormat="yyyy-MM-dd"
         className="neon-input"
-        calendarClassName="neon-calendar"    // 👉 clase personalizada del popup
-        popperClassName="neon-popper"        // 👉 estilos avanzados del popper
-
+        calendarClassName="neon-calendar"    //  clase personalizada del popup
+        popperClassName="neon-popper"        //  estilos avanzados del popper
+        maxDate={new Date()}
         showMonthDropdown
         showYearDropdown
         dropdownMode="select"
