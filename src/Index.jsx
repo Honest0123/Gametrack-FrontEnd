@@ -28,9 +28,8 @@ function App() {
 
   return (
     <>
-      <Header onAdd={() => setIsCrearOpen(true)} />
-
       <HomePage />
+      <Header onAdd={() => setIsCrearOpen(true)} />
       
       <Biblioteca />
 

@@ -1,5 +1,6 @@
 import '../styles/HomePage.css'
 import VideoMenu from "/Menu.mp4"
+import { Icon } from '@iconify/react'
 import gamepadLogo from '../assets/gamepad.png'
 export default function HomePage() {
   return (
@@ -11,12 +12,11 @@ export default function HomePage() {
       </div>
       
       <div className='Logo'>
-        <img src={gamepadLogo} id="imgLogo"></img>
       </div>
 
       <div className='Title'>
         <h1>GameTrack</h1>
-        <p>Welcome to the Gametrack home page!</p>
+        <p>Welcome to the Gametrack!</p>
       </div>
       
 

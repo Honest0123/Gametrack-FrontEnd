@@ -4,11 +4,8 @@
     display: inline-block;
 }
 
-:root {
-    --neon: #ff0000;
-    --panel: #0a0f1f;
-    --muted: #bfffc9;
-}
+
+
 
 .dropdown-select {
     min-width: 10rem;

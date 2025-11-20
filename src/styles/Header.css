@@ -1,14 +1,18 @@
 :root {
     --bg-dark: #05060f;
+      --bg: #05060f;
     --panel: #0a0f1f;
-    --neon: #00ff37;
+       --panel-2: #071021;
+    --neon: #00ffddcc;
     --neon-weak: rgba(0, 255, 55, 0.12);
-    --muted: #98ffb8;
+    --muted: #fff;
+    --noBlanco: #cfeee0;
 }
 
 header {
-    position: sticky;
+    position: fixed;
     top: 0;
+    width: 100%;
     z-index: 1000;
     backdrop-filter: blur(6px);
 }
