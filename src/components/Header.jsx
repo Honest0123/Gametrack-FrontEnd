@@ -5,7 +5,7 @@ export default function Header({ onAdd = () => {} }) {
   return (
     <header>
       <nav>
-        <div className="navlogo"><img src={gamepadLogo} id="imgLogo"></img>track</div>
+        <div className="navlogo"><img src={gamepadLogo} id="imgLogo"></img>Track</div>
         <button className='navButton'>Biblioteca</button>
         <button className='navButton'>Favoritos</button>
         <button className='navButton' onClick={onAdd}>Añadir</button>

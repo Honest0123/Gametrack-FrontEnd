@@ -4,7 +4,7 @@
   justify-content: space-between;
   overflow: hidden;
   background: linear-gradient(180deg, rgba(10, 15, 31, 0.6), rgba(6, 8, 15, 0.6));
-  border: 1px solid rgba(0, 255, 55, 0.06);
+  border: 1px solid rgba(0, 255, 255, 0.06);
   border-radius: 12px;
   padding: 1rem;
   margin: 0.5rem 0;
@@ -21,7 +21,7 @@
   height: 160px;
   object-fit: cover;
   border-radius: 8px;
-  border: 1px solid rgba(0, 255, 55, 0.04);
+  border: 1px solid rgba(0, 255, 242, 0.04);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
 }
 
@@ -30,7 +30,7 @@
   margin: 0;
   color: var(--neon);
   font-weight: 700;
-  text-shadow: 0 0 8px rgba(0, 255, 55, 0.08);
+  text-shadow: 0 0 8px rgba(0, 255, 234, 0.08);
 }
 
 .calificacion {
@@ -109,7 +109,7 @@
 .plataformas-juego {
   margin: 0;
   font-size: 0.95rem;
-  color: rgba(0, 255, 55, 0.6);
+  color: #008a78cc;
   place-self: end stretch;
   grid-column: 1;
 }
@@ -134,7 +134,7 @@
   width: 65%;
   height: 90%;
   color: #cfeee0;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 40px rgba(0,255,55,0.03);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 40px rgba(0, 255, 238, 0.03);
 }
 
 .modal-juego .modal-close{
@@ -143,11 +143,11 @@
   top: 10px;
   background: transparent;
   border: none;
-  color: var(--neon, #00ff37);
+  color: var(--neon);
   font-size: 1.4rem;
   cursor: pointer;
   padding: 4px 8px;
   border-radius: 6px;
   transition: transform 140ms ease, box-shadow 140ms ease;
 }
-.modal-juego .modal-close:hover{ transform: scale(1.06); box-shadow: 0 6px 18px rgba(0,255,55,0.06); }
+.modal-juego .modal-close:hover{ transform: scale(1.06); box-shadow: 0 6px 18px rgba(0, 255, 204, 0.06); }

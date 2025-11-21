@@ -1,10 +1,10 @@
 :root {
     --bg-dark: #05060f;
-      --bg: #05060f;
+    --bg: #05060f;
     --panel: #0a0f1f;
-       --panel-2: #071021;
+    --panel-2: #071021;
     --neon: #00ffddcc;
-    --neon-weak: rgba(0, 255, 55, 0.12);
+    --neon-weak: rgba(0, 238, 255, 0.12);
     --muted: #fff;
     --noBlanco: #cfeee0;
 }
@@ -23,15 +23,18 @@ nav {
     gap: 0.75rem;
     padding: 0.75rem 1rem;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.15));
-    border-bottom: 1px solid rgba(0, 255, 55, 0.06);
+    border-bottom: 1px solid rgba(0, 255, 247, 0.06);
+    font-family: "Jersey 20", sans-serif;
+    font-weight: 400;
+    font-style: normal
 }
 
 .navlogo {
     flex-grow: 1;
-    color: var(--neon);
+    color: var(--noBlanco);
     font-weight: 700;
     letter-spacing: 0.6px;
-    text-shadow: 0 0 8px rgba(0, 255, 55, 0.18), 0 2px 8px rgba(0, 0, 0, 0.6);
+    text-shadow: 0 0 8px rgba(0, 255, 213, 0.18), 0 2px 8px rgba(0, 0, 0, 0.6);
     display: flex;
     align-items: center;
 }
@@ -52,13 +55,16 @@ nav {
     cursor: pointer;
     transition: all 180ms ease;
     font-size: 15px;
+    font-family: "Jersey 20", sans-serif;
+    font-weight: 400;
+    font-style: normal
 }
 
 .navButton:hover {
     color: var(--neon);
     box-shadow: 0 4px 18px var(--neon-weak), inset 0 0 8px rgba(0, 0, 0, 0.25);
     transform: translateY(-2px);
-    border-color: rgba(0, 255, 55, 0.14);
+    border-color: rgba(0, 255, 255, 0.14);
 }
 
 .navButton:active {
@@ -67,5 +73,5 @@ nav {
 
 .navButton:focus {
     outline: none;
-    box-shadow: 0 0 12px rgba(0, 255, 55, 0.12);
+    box-shadow: 0 0 12px rgba(0, 255, 229, 0.12);
 }
