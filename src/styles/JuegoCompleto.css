@@ -147,4 +147,73 @@
   border-radius: 6px;
   transition: transform 140ms ease, box-shadow 140ms ease;
 }
+
+.modal-juego .modal-close:hover{ transform: scale(1.06); box-shadow: 0 6px 18px rgba(0,255,55,0.06); }
+
+.div-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+}
+
+.highlight {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  color: var(--neon);
+  font-weight: 600;
+}
+
+.genero-juego-completo {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  color: var(--neon);
+  font-weight: 600;
+}
+
+.estado-completado-si {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  color: var(--neon);
+  font-weight: 600;
+}
+.estado-completado-no {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  color: #008a78cc;
+  font-weight: 600;
+}
+
+/* Scrollbar verde */
+.modal-juego {
+  scrollbar-width: thin;
+  /* Firefox */
+  scrollbar-color: var(--neon) transparent;
+}
+
+.modal-juego::-webkit-scrollbar {
+  height: 12px;
+}
+
+.modal-juego::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal-juego::-webkit-scrollbar-thumb {
+  background: var(--neon);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  box-shadow: 0 4px 18px rgba(0, 255, 55, 0.12), inset 0 0 8px rgba(0, 0, 0, 0.35);
+}
+
+.modal-juego::-webkit-scrollbar-thumb:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 34px rgba(0, 255, 55, 0.16), inset 0 0 10px rgba(0, 0, 0, 0.45);
+}
+
+.modal-juego::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
 .modal-juego .modal-close:hover{ transform: scale(1.06); box-shadow: 0 6px 18px rgba(0, 255, 204, 0.06); }
