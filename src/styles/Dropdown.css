@@ -13,14 +13,14 @@
     border-radius: 8px;
     background: var(--panel);
     color: var(--muted);
-    border: 1px solid rgba(0, 255, 55, 0.06);
+    border: 1px solid rgba(0, 255, 234, 0.06);
     box-shadow: 0 6px 22px rgba(0, 255, 55, 0.03);
     cursor: pointer;
     transition: all 160ms ease;
 }
 
 .dropdown-select:hover {
-    box-shadow: 0 8px 34px rgba(0, 255, 55, 0.06), 0 0 8px rgba(0, 255, 55, 0.03);
+    box-shadow: 0 8px 34px rgba(0, 255, 217, 0.06), 0 0 8px rgba(0, 255, 234, 0.03);
 }
 
 .dropdown-menu {
@@ -29,7 +29,7 @@
     left: 0;
     width: 100%;
     background: linear-gradient(180deg, rgba(10, 15, 31, 0.95), rgba(6, 8, 15, 0.95));
-    border: 1px solid rgba(0, 255, 55, 0.06);
+    border: 1px solid rgba(0, 255, 234, 0.06);
     border-radius: 8px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
     z-index: 2000;
@@ -48,9 +48,9 @@
 }
 
 .dropdown-option:hover {
-    background: rgba(0, 255, 55, 0.04);
+    background: rgba(0, 255, 242, 0.04);
     transform: translateX(4px);
-    box-shadow: 0 6px 20px rgba(0, 255, 55, 0.03);
+    box-shadow: 0 6px 20px rgba(0, 255, 213, 0.03);
 }
 
 .dropdown-option input {

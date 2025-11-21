@@ -53,7 +53,10 @@
 }
 
 .Title h1 {
-    font-size: 16rem;
+    font-family: "Jersey 15", sans-serif;
+    font-style: normal;
+    font-size: 17vw;
+    font-weight:400;
     margin-bottom: 0;
     text-shadow: 6px 6px 8px rgba(0, 255, 221, 0.8);
 }

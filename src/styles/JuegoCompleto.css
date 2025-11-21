@@ -4,7 +4,7 @@
   justify-content: space-between;
   overflow: hidden;
   background: linear-gradient(180deg, rgba(10, 15, 31, 0.6), rgba(6, 8, 15, 0.6));
-  border: 1px solid rgba(0, 255, 55, 0.06);
+  border: 1px solid rgba(0, 255, 255, 0.06);
   border-radius: 12px;
   padding: 1rem;
   margin: 0.5rem 0;
@@ -21,7 +21,7 @@
   height: 160px;
   object-fit: cover;
   border-radius: 8px;
-  border: 1px solid rgba(0, 255, 55, 0.04);
+  border: 1px solid rgba(0, 255, 242, 0.04);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
 }
 
@@ -31,7 +31,7 @@
   margin: 0;
   color: var(--neon);
   font-weight: 700;
-  text-shadow: 0 0 8px rgba(0, 255, 55, 0.08);
+  text-shadow: 0 0 8px rgba(0, 255, 234, 0.08);
 }
 
 .calificacion {
@@ -103,7 +103,9 @@
   min-height: 25px;
   min-width: fit-content;
   font-size: 0.95rem;
-  color: var(--neon);
+  color: #008a78cc;
+  place-self: end stretch;
+  grid-column: 1;
 }
 
 /* Modal overlay + modal box */
@@ -129,7 +131,7 @@
   width: 65%;
   height: 90%;
   color: #cfeee0;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 40px rgba(0,255,55,0.03);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 40px rgba(0, 255, 238, 0.03);
 }
 
 .modal-juego .modal-close{
@@ -145,70 +147,4 @@
   border-radius: 6px;
   transition: transform 140ms ease, box-shadow 140ms ease;
 }
-.modal-juego .modal-close:hover{ transform: scale(1.06); box-shadow: 0 6px 18px rgba(0,255,55,0.06); }
-
-.div-flex {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1em;
-}
-
-.highlight {
-  font-size: 1rem;
-  margin: 0.5rem 0;
-  color: var(--neon);
-  font-weight: 600;
-}
-
-.genero-juego-completo {
-  font-size: 1rem;
-  margin: 0.5rem 0;
-  color: var(--neon);
-  font-weight: 600;
-}
-
-.estado-completado-si {
-  font-size: 1rem;
-  margin: 0.5rem 0;
-  color: var(--neon);
-  font-weight: 600;
-}
-.estado-completado-no {
-  font-size: 1rem;
-  margin: 0.5rem 0;
-  color: #ff0080;
-  font-weight: 600;
-}
-
-/* Scrollbar verde */
-.modal-juego {
-  scrollbar-width: thin;
-  /* Firefox */
-  scrollbar-color: var(--neon) transparent;
-}
-
-.modal-juego::-webkit-scrollbar {
-  height: 12px;
-}
-
-.modal-juego::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.modal-juego::-webkit-scrollbar-thumb {
-  background: var(--neon);
-  border-radius: 999px;
-  border: 2px solid transparent;
-  background-clip: padding-box;
-  box-shadow: 0 4px 18px rgba(0, 255, 55, 0.12), inset 0 0 8px rgba(0, 0, 0, 0.35);
-}
-
-.modal-juego::-webkit-scrollbar-thumb:hover {
-  transform: scale(1.03);
-  box-shadow: 0 8px 34px rgba(0, 255, 55, 0.16), inset 0 0 10px rgba(0, 0, 0, 0.45);
-}
-
-.modal-juego::-webkit-scrollbar-corner {
-  background: transparent;
-}
+.modal-juego .modal-close:hover{ transform: scale(1.06); box-shadow: 0 6px 18px rgba(0, 255, 204, 0.06); }

@@ -16,7 +16,7 @@ export default function HomePage() {
 
       <div className='Title'>
         <h1>GameTrack</h1>
-        <p>Welcome to the Gametrack!</p>
+        <p>Keep Track of your games!</p>
       </div>
       
 
