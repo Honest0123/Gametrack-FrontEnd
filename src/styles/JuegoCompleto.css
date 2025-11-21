@@ -26,7 +26,8 @@
 }
 
 .titulo-juego {
-  font-size: 1.25rem;
+  flex-grow: 1;
+  font-size: 2rem;
   margin: 0;
   color: var(--neon);
   font-weight: 700;
@@ -40,10 +41,10 @@
 }
 
 .descripcion-juego {
-  flex-grow: 1;
+  flex-grow: 2;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-height: 4.2em;
+  min-height: fit-content;
   line-height: 1.4;
   font-size: 0.96rem;
   color: #cfeee0;
@@ -54,15 +55,7 @@
   grid-row: 1;
   grid-column: 1 / span 2;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-}
-
-.info-segunda {
-  grid-row: 2;
-  grid-column: 1 / span 2;
-  display: flex;
-  justify-content: space-between;
 }
 
 .info-imagenes {
@@ -72,7 +65,7 @@
   grid-template-rows: 1fr 1fr;
   justify-content: space-evenly;
   gap: 0.5rem;
-  max-height: 200px;
+  max-height: 50%;
 }
 
 .info-imagenes .imagen-1 {
@@ -106,12 +99,11 @@
   align-self: start;
 }
 
-.plataformas-juego {
-  margin: 0;
+.plataformas-juego-completo {
+  min-height: 25px;
+  min-width: fit-content;
   font-size: 0.95rem;
-  color: rgba(0, 255, 55, 0.6);
-  place-self: end stretch;
-  grid-column: 1;
+  color: var(--neon);
 }
 
 /* Modal overlay + modal box */
@@ -128,6 +120,9 @@
 }
 
 .modal-juego{
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
   background: linear-gradient(180deg, rgba(10,15,31,0.95), rgba(6,8,15,0.95));
   padding: 1.25rem 1.5rem;
   border-radius: 12px;
@@ -143,7 +138,7 @@
   top: 10px;
   background: transparent;
   border: none;
-  color: var(--neon, #00ff37);
+  color: var(--neon);
   font-size: 1.4rem;
   cursor: pointer;
   padding: 4px 8px;
@@ -151,3 +146,69 @@
   transition: transform 140ms ease, box-shadow 140ms ease;
 }
 .modal-juego .modal-close:hover{ transform: scale(1.06); box-shadow: 0 6px 18px rgba(0,255,55,0.06); }
+
+.div-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+}
+
+.highlight {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  color: var(--neon);
+  font-weight: 600;
+}
+
+.genero-juego-completo {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  color: var(--neon);
+  font-weight: 600;
+}
+
+.estado-completado-si {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  color: var(--neon);
+  font-weight: 600;
+}
+.estado-completado-no {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  color: #ff0080;
+  font-weight: 600;
+}
+
+/* Scrollbar verde */
+.modal-juego {
+  scrollbar-width: thin;
+  /* Firefox */
+  scrollbar-color: var(--neon) transparent;
+}
+
+.modal-juego::-webkit-scrollbar {
+  height: 12px;
+}
+
+.modal-juego::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal-juego::-webkit-scrollbar-thumb {
+  background: var(--neon);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  box-shadow: 0 4px 18px rgba(0, 255, 55, 0.12), inset 0 0 8px rgba(0, 0, 0, 0.35);
+}
+
+.modal-juego::-webkit-scrollbar-thumb:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 34px rgba(0, 255, 55, 0.16), inset 0 0 10px rgba(0, 0, 0, 0.45);
+}
+
+.modal-juego::-webkit-scrollbar-corner {
+  background: transparent;
+}
