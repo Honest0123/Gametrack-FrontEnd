@@ -47,10 +47,26 @@ export default function Categoria({ nombre }) {
       } catch(err){ console.warn('handleNuevoJuego', err) }
     }
 
+    const handleJuegoActualizado = (e) => {
+      try {
+        const actualizado = e?.detail;
+        if (!actualizado) return;
+
+        fetchJuegos(); // refrescar toda la lista
+        
+      } catch(err) {
+        console.warn('handleJuegoActualizado', err)
+      }
+    }
+
+    window.addEventListener('juego-actualizado', handleJuegoActualizado);
     window.addEventListener('juego-creado', handleNuevoJuego);
+    window.addEventListener('juego-eliminado', fetchJuegos); // refrescar lista al eliminar
 
     return () => {
       window.removeEventListener('juego-creado', handleNuevoJuego);
+      window.removeEventListener('juego-actualizado', handleJuegoActualizado);
+      window.removeEventListener('juego-eliminado', fetchJuegos);
     };
   }, [nombre]);
 

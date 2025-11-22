@@ -62,7 +62,7 @@ export default function TarjetaDeJuego({ data }) {
         <>
           <img src={imagenPortada} alt={"imagen de " + titulo} className="imagen-juego"/>
           <h3 className="titulo-juego">{titulo}</h3>
-          <p className="descripcion-juego">{descripcion}</p>
+          <p className="descripcion-juego-normal">{descripcion}</p>
           <div className="calificacion">{estrellas}</div>
         </>
         

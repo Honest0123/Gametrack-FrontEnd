@@ -3,7 +3,7 @@ import CustomCalendario from "./CustomCalendario.jsx";
 import Dropdown from "./Dropdown";
 import '../styles/CrearJuego.css'
 
-export default function CrearJuego({ isOpen = false, onClose = () => {} }) {
+export default function CrearJuego({ isOpen = false, onClose = () => {}, isEdit = false, initialData = null, onSuccess = () => {} }) {
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [genero, setGenero] = useState([]);
@@ -17,6 +17,23 @@ export default function CrearJuego({ isOpen = false, onClose = () => {} }) {
 
   const [mensaje, setMensaje] = useState("");
   const [Errors, setErrors] = useState({});
+
+    // When in edit mode, populate form with initialData
+    useEffect(() => {
+        if (isEdit && initialData) {
+            setTitulo(initialData.titulo || "");
+            setDescripcion(initialData.descripcion || "");
+            // backend may store genres/platforms as CSV string
+            setGenero(initialData.genero ? (typeof initialData.genero === 'string' ? initialData.genero.split(',') : initialData.genero) : []);
+            setPlataforma(initialData.plataforma ? (typeof initialData.plataforma === 'string' ? initialData.plataforma.split(',') : initialData.plataforma) : []);
+            setAñoLanzamiento(initialData.añoLanzamiento ? new Date(initialData.añoLanzamiento) : (initialData.fechaLanzamiento ? new Date(initialData.fechaLanzamiento) : null));
+            setDesarrollador(initialData.desarrollador || "");
+            setImagenPortada(initialData.imagenPortada || "");
+            setImagen2(initialData.imagen2 || "");
+            setImagen3(initialData.imagen3 || "");
+            setCompletado(!!initialData.completado);
+        }
+    }, [isEdit, initialData]);
 
     // helper: notificación flotante al crear juego
     const MostrarNotificacion = (msg, duration = 3000) => {
@@ -68,10 +85,11 @@ export default function CrearJuego({ isOpen = false, onClose = () => {} }) {
             completado: !!completado,
         };
 
-        console.log('Enviando POST a', `${import.meta.env.VITE_API_URL}/api/Games/juegos`, 'payload:', payload);
+        const url = isEdit && initialData && initialData._id ? `${import.meta.env.VITE_API_URL}/api/Games/juegos/id/${initialData._id}` : `${import.meta.env.VITE_API_URL}/api/Games/juegos`;
+        const method = isEdit ? 'PUT' : 'POST';
 
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/Games/juegos`, {
-            method: "POST",
+        const res = await fetch(url, {
+            method,
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
@@ -83,34 +101,43 @@ export default function CrearJuego({ isOpen = false, onClose = () => {} }) {
         let data;
         try { data = text ? JSON.parse(text) : null; } catch (e) { data = text }
 
-        console.log('Respuesta POST', res.status, data);
+        console.log('Respuesta POST/PUT', res.status, data);
 
         if (!res.ok) {
             throw new Error(`Error Http ${res.status}: ${JSON.stringify(data)}`);
         }
 
-        setMensaje("Juego creado exitosamente!");
+        // Message depends on create vs edit
+        setMensaje(isEdit ? "Juego actualizado correctamente!" : "Juego creado exitosamente!");
 
-        // Resetear estados a sus tipos originales
-        setTitulo("");
-        setDescripcion("");
-        setGenero([]);
-        setPlataforma([]);
-        setAñoLanzamiento(null);
-        setDesarrollador("");
-        setImagenPortada("");
-        setImagen2("");
-        setImagen3("");
-        setCompletado(false);
+                if (!isEdit) {
+                    // Resetear estados a sus tipos originales solo cuando se crea
+                    setTitulo("");
+                    setDescripcion("");
+                    setGenero([]);
+                    setPlataforma([]);
+                    setAñoLanzamiento(null);
+                    setDesarrollador("");
+                    setImagenPortada("");
+                    setImagen2("");
+                    setImagen3("");
+                    setCompletado(false);
+                }
 
-        // Mostrar Notificacion flotante
-        MostrarNotificacion('Juego creado exitosamente!');
+                // Mostrar Notificacion flotante
+                MostrarNotificacion(isEdit ? 'Juego actualizado correctamente!' : 'Juego creado exitosamente!');
 
-        // Dispatch evento global para que listas se actualicen
-        try { window.dispatchEvent(new CustomEvent('juego-creado', { detail: data })); } catch(e) { console.warn(e) }
+                // Dispatch evento global para que listas se actualicen
+                try {
+                    const eventName = isEdit ? 'juego-actualizado' : 'juego-creado';
+                    window.dispatchEvent(new CustomEvent(eventName, { detail: data }));
+                } catch(e) { console.warn(e) }
 
-        // Cerrar modal después de crear exitosamente
-        if (onClose) onClose();
+                // Informar al caller si proporcionó callback
+                try { onSuccess && onSuccess(data); } catch(e) { console.warn(e) }
+
+                // Cerrar modal después de crear/editar exitosamente
+                if (onClose) onClose();
 
     } catch (error) {
         setMensaje("Error al crear el juego");
@@ -132,7 +159,7 @@ export default function CrearJuego({ isOpen = false, onClose = () => {} }) {
             <div className="modal" onClick={(e) => e.stopPropagation()}>
                 <button className="modal-close" aria-label="Cerrar" onClick={onClose}>×</button>
                 <form onSubmit={handleSubmit} className="game-form">
-                    <h2>Crear Nuevo Juego</h2>
+                    <h2>{isEdit ? 'Editar Juego' : 'Crear Nuevo Juego'}</h2>
                     
                     <label>Titulo:</label>
                     <input type="text" placeholder="Título" value={titulo} onChange={(e) => setTitulo(e.target.value)} required />
@@ -184,7 +211,7 @@ export default function CrearJuego({ isOpen = false, onClose = () => {} }) {
                     </div>
 
                     <div className="form-actions">
-                        <button type="submit" className="boton-crear">Crear Juego</button>
+                        <button type="submit" className="boton-crear">{isEdit ? 'Guardar cambios' : 'Crear Juego'}</button>
                         <button type="button" className="boton-cancelar" onClick={onClose}>Cancelar</button>
                     </div>
                     {mensaje && <p className="mensaje">{mensaje}</p>}

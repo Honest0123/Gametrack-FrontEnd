@@ -117,7 +117,7 @@ main {
   margin: 0.3rem 0;
 }
 
-.descripcion-juego {
+.descripcion-juego-normal {
   flex-grow: 1;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -128,7 +128,7 @@ main {
   margin: 0.3rem;
 }
 
-.tarjeta-juego:hover {
+.tarjeta-juego-normal:hover {
   display: grid;
   grid-template-rows: auto auto;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);

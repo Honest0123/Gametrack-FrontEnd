@@ -10,6 +10,7 @@ export default function Review({ juegoId }) {
     useEffect(() => {
         const fetchReviews = async () => {
             try {
+                if (!juegoId) return; // no intentar si no hay id
                 const res = await fetch(`${import.meta.env.VITE_API_URL}/api/Games/Reviews?juegoId=${juegoId}`);
                 if (res.ok) {
                     const data = await res.json();
