@@ -170,7 +170,7 @@ export default function CrearJuego({ isOpen = false, onClose = () => {}, isEdit 
                     <div className={`multi-select-dropdown ${Errors.genero ? 'error' : ''}`}> 
                         <label>Género:</label>
                         <Dropdown
-                            options={['Acción', 'Aventura', 'Estrategia', 'RPG', 'Deportes', 'Simulación']}
+                            options={['Acción', 'Aventura', 'Estrategia','Supervivencia', 'Plataformas', 'Deportes y Carreras', 'RPG', 'Shooter', 'Mundo Abierto', 'Battle Royale', 'Multijugador', 'Simulación', 'Otros']}
                             selected={genero}
                             onChange={setGenero}
                         />
@@ -180,7 +180,7 @@ export default function CrearJuego({ isOpen = false, onClose = () => {}, isEdit 
                     <div className={`multi-select-dropdown ${Errors.plataforma ? 'error' : ''}`}>
                         <label>Plataforma:</label>
                             <Dropdown
-                                options={['PC', 'PlayStation', 'Xbox', 'Nintendo Switch']}
+                                options={['PC', 'PlayStation', 'Xbox', 'Nintendo', 'Mobile', 'GameBoy', 'Multiplataforma']}
                                 selected={plataforma}
                                 onChange={setPlataforma}
                             />
