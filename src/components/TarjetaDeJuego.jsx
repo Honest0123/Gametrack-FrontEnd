@@ -20,6 +20,7 @@ export default function TarjetaDeJuego({ data }) {
           const sumaCalificaciones = reviews.reduce((suma, review) => suma + review.puntuacion, 0);
           const calificacionPromedio = sumaCalificaciones / reviews.length;
           setCalificacion(Math.round(calificacionPromedio));
+           HandleGameClickePuntuacion(calificacionPromedio);
         } else {
           setCalificacion(0);
         }
@@ -28,6 +29,21 @@ export default function TarjetaDeJuego({ data }) {
         console.error('Error al obtener las reviews del juego:', error);
       }
     };
+
+    const handleJuegoActualizado = (e) => {
+        try {
+            const actualizado = e?.detail;
+            if (!actualizado) return;
+            // si el juego actualizado es el que se está mostrando, actualizar data
+            if (data && actualizado === data._id) {
+                fetchReviews();
+               
+            }
+        } catch(err) {
+            console.warn('handleJuegoActualizado', err)
+        }
+    };
+       window.addEventListener('puntuacion-actualizada', handleJuegoActualizado);
 
     fetchReviews();
   }, [data._id]);
@@ -39,6 +55,10 @@ export default function TarjetaDeJuego({ data }) {
   const HandleGameClicked = () => {
     // Abrir modal de JuegoCompleto
     window.dispatchEvent(new CustomEvent('abrir-juego-completo', { detail: { data, calificacion } }));
+  }
+  const HandleGameClickePuntuacion= (nuevaCalificacion) => {
+    // Abrir modal de JuegoCompleto
+    window.dispatchEvent(new CustomEvent('puntuacion-completada', { detail: { data, nuevaCalificacion } }));
   }
 
   /* Inicializacion de datos. Reemplazados por los que vengan de data, sino dummy*/

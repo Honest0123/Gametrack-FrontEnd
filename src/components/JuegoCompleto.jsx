@@ -11,6 +11,8 @@ export default function JuegoCompleto({ data, calificacion, isOpen = false, onCl
     const [deleteError, setDeleteError] = useState(null);
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
+    const [nuevaCalificacion, setnuevaCalificacion]= useState(calificacion);
+
     useEffect(() => {
         const handleEsc = (e) => {
             if (e.key === 'Escape' && isOpen) onClose();
@@ -59,10 +61,30 @@ export default function JuegoCompleto({ data, calificacion, isOpen = false, onCl
         } catch (error) {
             console.error('Error al eliminar el juego:', error);
             setIsDeleting(false);
-            // leave deleteError set for UI
         }
     };
 
+ 
+    useEffect(() => {
+        const HandleGameClickePuntuacion = (e) => {
+        try {
+            console.log("Juego actualizado event received");
+            const actualizado = e?.detail;
+            if (!actualizado) return;
+            console.log("Datos del juego actualizado:", actualizado);
+            // si el juego actualizado es el que se está mostrando, actualizar data
+            if (data && actualizado._id === data._id) {
+                calificacion = actualizado.calificacion;
+                setnuevaCalificacion(calificacion)
+                console.log("Juego actualizado en modal:", calificacion);
+            }
+        } catch(err) {
+            console.warn('handleJuegoActualizado', err)
+        }
+    };
+       window.addEventListener('puntuacion-completada', HandleGameClickePuntuacion);
+       setnuevaCalificacion(calificacion);
+    });
 
     // Nota: la apertura del modal la maneja el padre (Index.jsx)
 
@@ -72,7 +94,7 @@ export default function JuegoCompleto({ data, calificacion, isOpen = false, onCl
 
     const estrellas = Array.from({ 
         length: 5 }, (_, i) => (
-        <Icon key={i} icon={i < calificacion ? "icon-park-solid:star" : "icon-park-outline:star"} />
+        <Icon key={i} icon={i < nuevaCalificacion ? "icon-park-solid:star" : "icon-park-outline:star"} />
       ));
 
 
@@ -88,7 +110,7 @@ export default function JuegoCompleto({ data, calificacion, isOpen = false, onCl
                 </div>
                 <div className="info-primera">
                     <h3 className="titulo-juego">{data.titulo}</h3>
-                    <div className="calificacion">{estrellas}</div>
+                    <div className="calificacion" >{estrellas}</div>
                 </div>
                 <div className="div-flex">
                     <div className="div-flex">

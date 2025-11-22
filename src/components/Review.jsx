@@ -51,22 +51,22 @@ export default function Review({ juegoId }) {
     }, [juegoId]);
 
     const fetchReviews = async () => {
-            try {
-                if (!juegoId) return; // no intentar si no hay id
-                const res = await fetch(`${import.meta.env.VITE_API_URL}/api/Games/Reviews?juegoId=${juegoId}`);
-                if (res.ok) {
-                    const data = await res.json();
-                    setReviews(data);
-                    setCargando(false);
-                    return;
-                }
-                throw new Error(`Error Http ${res.status}`);
-
-            } catch (error) {
-                setError(error.message);
-                console.error('Error al obtener la reseña:', error);
+        try {
+            if (!juegoId) return; // no intentar si no hay id
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/Games/Reviews?juegoId=${juegoId}`);
+            if (res.ok) {
+                const data = await res.json();
+                setReviews(data);
+                setCargando(false);
+                return;
             }
-        };
+            throw new Error(`Error Http ${res.status}`);
+
+        } catch (error) {
+            setError(error.message);
+            console.error('Error al obtener la reseña:', error);
+        }
+    };
 
     if (error) return <p>Error al cargar la reseña: {error}</p>;
 
@@ -89,6 +89,7 @@ export default function Review({ juegoId }) {
         } finally {
             setIsDeleting(false);
             fetchReviews(); // refrescar lista tras eliminar
+            window.dispatchEvent(new CustomEvent('puntuacion-actualizada', { detail: juegoId }));
         }
     };
 
@@ -112,9 +113,9 @@ export default function Review({ juegoId }) {
         if (isNaN(horas) || horas < 0) {
             newErrors.agregarHorasJugadas = 'Las horas jugadas no pueden ser negativas.';
         }
-        
-        
-        
+
+
+
         setErrors(newErrors);
 
         if (Object.keys(newErrors).length > 0) {
@@ -143,7 +144,7 @@ export default function Review({ juegoId }) {
             setShowForm(false);
 
             // Dispatch global event for other components
-            try { window.dispatchEvent(new CustomEvent('review-creada', { detail: result.data })); } catch(e) { console.warn(e) }
+            try { window.dispatchEvent(new CustomEvent('review-creada', { detail: result.data })); } catch (e) { console.warn(e) }
 
             // reset form (both add-* and main fields)
             setAgregarPuntuacion('');
@@ -162,6 +163,7 @@ export default function Review({ juegoId }) {
             setMensaje(`Error: ${err.message || 'No se pudo crear la reseña'}`);
         } finally {
             setSubmitting(false);
+            window.dispatchEvent(new CustomEvent('puntuacion-actualizada', { detail: juegoId }));
         }
     };
 
@@ -174,9 +176,9 @@ export default function Review({ juegoId }) {
 
             {showForm && (
                 <form className="review-form" onSubmit={handleSubmit}>
-                    <div className={`multi-select-dropdown ${Errors.agregarPuntuacion ? 'error' : ''}`}> 
+                    <div className={`multi-select-dropdown ${Errors.agregarPuntuacion ? 'error' : ''}`}>
                         <label>Puntuacion:</label>
-                        
+
                         <Dropdown
                             options={['1', '2', '3', '4', '5']}
                             selected={agregarPuntuacion}
@@ -191,10 +193,10 @@ export default function Review({ juegoId }) {
                     <label>Horas jugadas:</label>
                     <input type="number" min="1" value={agregarHorasJugadas} onChange={(e) => setAgregarHorasJugadas(e.target.value)} required />
 
-                    <div className={`multi-select-dropdown ${Errors.agregarDificultad ? 'error' : ''}`}> 
+                    <div className={`multi-select-dropdown ${Errors.agregarDificultad ? 'error' : ''}`}>
                         <label>Dificultad:</label>
                         <Dropdown
-                            options={['Baja','Media','Alta']}
+                            options={['Baja', 'Media', 'Alta']}
                             selected={agregarDificultad}
                             onChange={setAgregarDificultad}
                         />
@@ -218,11 +220,11 @@ export default function Review({ juegoId }) {
                     <div key={review._id} className="review">
                         <div className="review-calificacion">
                             <div className="div-flex">
-                            <p>Calificación:</p>
+                                <p>Calificación:</p>
                                 {
                                     Array.from({ length: 5 }, (_, i) => (<Icon key={i} icon={i < review.puntuacion ? "icon-park-solid:star" : "icon-park-outline:star"} />))
                                 }
-                                </div>
+                            </div>
                             <button className="modal-edit" onClick={() => setShowDeleteConfirm(true)}><Icon icon="octicon:trashcan" /></button>
                         </div>
                         <div className="review-texto">
@@ -244,11 +246,11 @@ export default function Review({ juegoId }) {
                                     </div>
                                 </div>
                             </div>
-        )}
+                        )}
                     </div>
                 ))
             )}
-            
+
         </div>
     );
 }
