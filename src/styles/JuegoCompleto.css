@@ -1,3 +1,5 @@
+
+
 .tarjeta-juego {
   display: flex;
   flex-direction: column;
@@ -58,45 +60,39 @@
   align-items: center;
 }
 
-.info-imagenes {
-  grid-row: 3;
-  grid-column: 1 / span 2;
+.info-imagenes-completo {
   display: grid;
-  grid-template-rows: 1fr 1fr;
-  justify-content: space-evenly;
+  /* left: large cover image, right: two stacked thumbnails */
+  grid-template-columns: 1fr 0.5fr;
+  grid-template-rows: .5fr .5fr;
   gap: 0.5rem;
-  max-height: 50%;
+  min-height: 40vh;
+  overflow: hidden; /* ensure images cannot push layout — crop/scale instead */
+  align-items: stretch;
+  place-items: stretch;
 }
 
-.info-imagenes .imagen-1 {
+.info-imagenes-completo img {
   display: block;
-  grid-column: 1 / span 2;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+.info-imagenes-completo .imagen-1-completo {
+  grid-column: 1;
   grid-row: 1 / span 2;
-  height: 85%;
-  max-height: 85%;
-  max-width: 100%;
-  object-fit: cover;
-  align-self: center;
 }
 
-.info-imagenes .imagen-2 {
-  grid-column: 3;
+.info-imagenes-completo .imagen-2-completo {
+  grid-column: 2;
   grid-row: 1;
-  display: block;
-  max-height: 100%;
-  max-width: 100%;
-  object-fit: cover;
-  align-self: center;
 }
-
-.info-imagenes .imagen-3 {
-  grid-column: 3;
+.info-imagenes-completo .imagen-3-completo {
+  grid-column: 2;
   grid-row: 2;
-  display: block;
-  max-height: 100%;
-  max-width: 100%;
-  object-fit: cover;
-  align-self: start;
 }
 
 .plataformas-juego-completo {

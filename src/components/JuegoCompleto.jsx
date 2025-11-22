@@ -83,7 +83,7 @@ export default function JuegoCompleto({ data, calificacion, isOpen = false, onCl
             <div className="modal-juego" onClick={(e) => e.stopPropagation()}>
                 {/* <button className="modal-close" aria-label="Cerrar" onClick={() => onClose && onClose()}>×</button> */}
                 <div className="modal-botones">
-                    <button className="modal-edit" aria-label="Editar" onClick={() => setIsEditing(true)}>✎</button>
+                    <button className="modal-edit" aria-label="Editar" onClick={() => setIsEditing(true)}><Icon icon="tabler:edit" /></button>
                     <button className="modal-delete" aria-label="Eliminar" onClick={() => setShowDeleteConfirm(true)} disabled={isDeleting}><Icon icon="octicon:trashcan" /></button>
                 </div>
                 <div className="info-primera">
@@ -98,10 +98,10 @@ export default function JuegoCompleto({ data, calificacion, isOpen = false, onCl
                         <p>Lanzamiento:</p><p className="highlight">{data.fechaLanzamiento ? data.fechaLanzamiento.split("T")[0] : (data.añoLanzamiento ? data.añoLanzamiento.split("T")[0] : '')}</p>
                     </div>
                 </div>
-                <div className="info-imagenes">
-                    {data.imagenPortada && <img src={data.imagenPortada} alt={"imagen de " + data.titulo} className="imagen-1" />}
-                    {data.imagen2 && <img src={data.imagen2} alt={"imagen de " + data.titulo} className="imagen-2" />}
-                    {data.imagen3 && <img src={data.imagen3} alt={"imagen de " + data.titulo} className="imagen-3" />}
+                <div className="info-imagenes-completo">
+                    {data.imagenPortada && <img src={data.imagenPortada} alt={"imagen de " + data.titulo} className="imagen-1-completo" />}
+                    {data.imagen2 && <img src={data.imagen2} alt={"imagen de " + data.titulo} className="imagen-2-completo" />}
+                    {data.imagen3 && <img src={data.imagen3} alt={"imagen de " + data.titulo} className="imagen-3-completo" />}
                 </div>
                 <div className="div-flex">
                     <div className="div-flex">

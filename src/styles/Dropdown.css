@@ -23,6 +23,13 @@
     box-shadow: 0 8px 34px rgba(0, 255, 217, 0.06), 0 0 8px rgba(0, 255, 234, 0.03);
 }
 
+/* error state when parent wrapper marks the dropdown invalid */
+.multi-select-dropdown.error .dropdown-select {
+    border-color: rgba(255, 100, 100, 0.9);
+    box-shadow: 0 6px 28px rgba(255, 60, 60, 0.08), 0 0 18px rgba(255, 80, 80, 0.06) inset;
+    color: #ffb3b3;
+}
+
 .dropdown-menu {
     position: absolute;
     top: 100%;

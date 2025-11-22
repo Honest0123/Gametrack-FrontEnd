@@ -2,14 +2,28 @@ import { useState } from "react";
 import '../styles/Dropdown.css'
 
 export default function Dropdown({ options, selected, onChange }) {
-const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  // Support both multi-select (selected is array) and single-select (selected is scalar)
+  const isArraySelected = Array.isArray(selected);
 
   const togglePlatform = (platform) => {
-    if (selected.includes(platform)) {
-      onChange(selected.filter((p) => p !== platform));
+    if (isArraySelected) {
+      if (selected.includes(platform)) {
+        onChange(selected.filter((p) => p !== platform));
+      } else {
+        onChange([...selected, platform]);
+      }
     } else {
-      onChange([...selected, platform]);
+      // single-select: set value or clear if same
+      const same = String(selected) === String(platform);
+      onChange(same ? '' : platform);
     }
+  };
+
+  const displayValue = () => {
+    if (isArraySelected) return (selected && selected.length) ? selected.join(', ') : 'Selecciona una opcion';
+    return selected ? String(selected) : 'Selecciona una opcion';
   };
 
   return (
@@ -17,7 +31,7 @@ const [isOpen, setIsOpen] = useState(false);
       
       {/* Button / Selector */}
       <div className="dropdown-select">
-        {selected.length > 0 ? selected.join(", ") : "Selecciona una opcion"}</div>
+        {displayValue()}</div>
 
       {/* Dropdown options */}
       {isOpen && (
@@ -25,8 +39,9 @@ const [isOpen, setIsOpen] = useState(false);
           {options.map((option) => (
             <label key={option} className="dropdown-option">
               <input
-                type="checkbox"
-                checked={selected.includes(option)}
+                type={isArraySelected ? 'checkbox' : 'radio'}
+                name={isArraySelected ? undefined : 'dropdown-single'}
+                checked={isArraySelected ? (selected.includes(option)) : (String(selected) === String(option))}
                 onChange={() => togglePlatform(option)}
               />
               <span>{option}</span>
