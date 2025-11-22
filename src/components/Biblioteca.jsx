@@ -11,6 +11,15 @@ export default function Biblioteca() {
         <Categoria nombre="Aventura" />
         <Categoria nombre="Estrategia" />
         <Categoria nombre="RPG" />
+        <Categoria nombre="Supervivencia" />
+        <Categoria nombre="Plataformas" />
+        <Categoria nombre="Deportes y Carreras" />
+        <Categoria nombre="Shooter" />
+        <Categoria nombre="Mundo Abierto" />
+        <Categoria nombre="Battle Royal" />
+        <Categoria nombre="Multijugador" />
+        <Categoria nombre="Simulacion" />
+        <Categoria nombre="Otros" />
       </section>
 
     </main>

@@ -9,7 +9,7 @@ export default function Categoria({ nombre }) {
   useEffect(() => {
     const fetchJuegos = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/Games/Juegos`)
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/Games/juegos?genero=${nombre}`)
 
         if (!res.ok) {
           throw new Error(`Error Http ${res.status}`);
@@ -78,6 +78,9 @@ export default function Categoria({ nombre }) {
     return <div>Error al cargar los juegos: {error}</div>;
   }
     
+  if (juegos.length === 0) {
+    return null;
+}
 
   return (
     <div className="categoria">
