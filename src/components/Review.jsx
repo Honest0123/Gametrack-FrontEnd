@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
 import Dropdown from "./Dropdown";
 import '../styles/Review.css'
+import { fetchWithFallback, postWithQueue } from '../utils/apiFallback';
 
 export default function Review({ juegoId }) {
     const [reviews, setReviews] = useState([]);
@@ -28,23 +29,23 @@ export default function Review({ juegoId }) {
     const [isDeleting, setIsDeleting] = useState(false);
 
     useEffect(() => {
-        /* const fetchReviews = async () => {
+        const fetchReviews = async () => {
             try {
                 if (!juegoId) return; // no intentar si no hay id
-                const res = await fetch(`${import.meta.env.VITE_API_URL}/api/Games/Reviews?juegoId=${juegoId}`);
-                if (res.ok) {
-                    const data = await res.json();
-                    setReviews(data);
-                    setCargando(false);
-                    return;
+                const resObj = await fetchWithFallback(`${import.meta.env.VITE_API_URL}/api/Games/Reviews?juegoId=${juegoId}`, 'reviews.json');
+                let data = resObj.data;
+                if (resObj.source === 'fallback') {
+                    // fallback file contains all reviews — filter by juegoId
+                    data = Array.isArray(data) ? data.filter(r => String(r.juegoId) === String(juegoId)) : [];
                 }
-                throw new Error(`Error Http ${res.status}`);
-
+                setReviews(data || []);
             } catch (error) {
-                setError(error.message);
+                setError(error.message || String(error));
                 console.error('Error al obtener la reseña:', error);
+            } finally {
+                setCargando(false);
             }
-        }; */
+        };
 
         fetchReviews();
     }, [juegoId]);
@@ -131,34 +132,24 @@ export default function Review({ juegoId }) {
                 recomendaria: typeof agregarRecomendaria === 'boolean' ? agregarRecomendaria : !!recomendaria,
             };
 
-            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/Games/reviews`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify(payload),
-            });
-
-            const text = await res.text();
-            let data;
-            try { data = text ? JSON.parse(text) : null; } catch(e) { data = text }
-
-            if (!res.ok) {
-                const msg = data && data.message ? data.message : `HTTP ${res.status}`;
-                throw new Error(msg);
+            const result = await postWithQueue(`${import.meta.env.VITE_API_URL}/api/Games/reviews`, payload, 'pendingReviews');
+            // result.data contains either server-created object or local queued object
+            setReviews((prev) => [result.data, ...prev]);
+            if (result.ok && result.source === 'api') {
+                setMensaje('Reseña creada correctamente');
+            } else {
+                setMensaje('Reseña guardada localmente. Se intentará subir cuando haya conexión.');
             }
-
-            // Prepend the new review to local list
-            setReviews((prev) => [data, ...prev]);
-            setMensaje('Reseña creada correctamente');
             setShowForm(false);
 
             // Dispatch global event for other components
-            try { window.dispatchEvent(new CustomEvent('review-creada', { detail: data })); } catch(e) { console.warn(e) }
+            try { window.dispatchEvent(new CustomEvent('review-creada', { detail: result.data })); } catch(e) { console.warn(e) }
 
             // reset form (both add-* and main fields)
             setAgregarPuntuacion('');
             setAgregarTextoReseña('');
             setAgregarHorasJugadas(0);
-            setAgregarDificultad('');
+            setAgregarDificultad('Media');
             setAgregarRecomendaria(true);
             setPuntuacion(5);
             setTextoReseña('');

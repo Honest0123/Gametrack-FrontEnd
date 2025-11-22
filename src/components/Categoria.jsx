@@ -1,5 +1,6 @@
 import TarjetaDeJuego from "./TarjetaDeJuego.jsx";
 import { useEffect, useState } from "react";
+import { fetchWithFallback } from '../utils/apiFallback';
 
 export default function Categoria({ nombre }) {
   const [juegos, setJuegos] = useState([]);
@@ -9,17 +10,19 @@ export default function Categoria({ nombre }) {
   useEffect(() => {
     const fetchJuegos = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/Games/juegos?genero=${nombre}`)
-
-        if (!res.ok) {
-          throw new Error(`Error Http ${res.status}`);
+        const resObj = await fetchWithFallback(`${import.meta.env.VITE_API_URL}/api/Games/juegos?genero=${nombre}`, 'juegos.json');
+        let data = resObj.data;
+        if (resObj.source === 'fallback') {
+          // filter fallback juegos by genero (fallback stores genero as CSV string)
+          data = Array.isArray(data) ? data.filter(j => {
+            const gen = typeof j.genero === 'string' ? j.genero.split(',').map(s => s.trim()) : (Array.isArray(j.genero) ? j.genero : []);
+            return gen.includes(nombre);
+          }) : [];
         }
-
-        const data = await res.json();
-        setJuegos(data);
+        setJuegos(data || []);
       } catch (error) {
         console.error('Error al obtener los juegos:', error);
-        setError(error.message);
+        setError(error.message || String(error));
       } finally {
         setCargando(false);
       }
