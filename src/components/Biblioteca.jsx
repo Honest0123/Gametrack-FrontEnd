@@ -6,7 +6,7 @@ export default function Biblioteca() {
   return (
     <main>
       {/* lista de juegos. dummy loop con lorem */}
-      <section className="biblioteca">
+      <section className="biblioteca" id='biblioteca'>
         <Categoria nombre="Acción" />
         <Categoria nombre="Aventura" />
         <Categoria nombre="Estrategia" />
@@ -16,7 +16,7 @@ export default function Biblioteca() {
         <Categoria nombre="Deportes y Carreras" />
         <Categoria nombre="Shooter" />
         <Categoria nombre="Mundo Abierto" />
-        <Categoria nombre="Battle Royal" />
+        <Categoria nombre="Battle Royale" />
         <Categoria nombre="Multijugador" />
         <Categoria nombre="Simulación" />
         <Categoria nombre="Otros" />

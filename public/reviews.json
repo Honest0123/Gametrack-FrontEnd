@@ -1,0 +1,26 @@
+[
+  {
+    "_id": "6920be42d81b0b8a3543885d",
+    "juegoId": "6916720040c9887655a3942d",
+    "puntuacion": 2,
+    "textoReseña": "El mejor de todos de plataformaEl mejor de todos de plataformaEl mejor de todos de plataforma",
+    "horasJugadas": 127,
+    "dificultad": "Muy facil",
+    "recomendaria": true,
+    "fechaActualizaccion": "2025-11-18T17:52:46.077Z",
+    "fechaCreacion": "2025-11-21T19:32:18.145Z",
+    "__v": 0
+  },
+  {
+    "_id": "6921258b0af59e57f63b0ce4",
+    "juegoId": "69179bb4dc6eb5052c319018",
+    "puntuacion": 5,
+    "textoReseña": "No tenia muchas esperanzas ni expectativas de este juego. Pero, al comenzar a jugarlo se volvio intuitivo y divertido. La verdad recomiendo mucho este juego y ya quiero terminarlo para jugar la secuela",
+    "horasJugadas": 50,
+    "dificultad": "Media",
+    "recomendaria": true,
+    "fechaActualizaccion": "2025-11-22T02:52:59.130Z",
+    "fechaCreacion": "2025-11-22T02:52:59.130Z",
+    "__v": 0
+  }
+]

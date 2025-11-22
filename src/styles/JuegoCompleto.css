@@ -66,8 +66,7 @@
   grid-template-columns: 1fr 0.5fr;
   grid-template-rows: .5fr .5fr;
   gap: 0.5rem;
-  min-height: 40vh;
-  overflow: hidden; /* ensure images cannot push layout — crop/scale instead */
+ max-height: fit-content;
   align-items: stretch;
   place-items: stretch;
 }

@@ -168,10 +168,9 @@ main {
   grid-row: 3;
   grid-column: 1 / span 2;
   display: grid;
-  grid-template-rows: 1fr 1fr;
   justify-content: space-evenly;
   gap: 0.5rem;
-  max-height: 200px;
+  max-height: fit-content;
 }
 
 .info-imagenes .imagen-1 {
