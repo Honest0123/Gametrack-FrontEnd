@@ -38,10 +38,10 @@ https://github.com/Honest0123/Gametrack-FrontEnd
 
 ## ⚙️ Instalación local
 
-``
-npm install
-npm run dev
-``
+
+- npm install
+- npm run dev
+
 
 
 ## 🌐 Demo
